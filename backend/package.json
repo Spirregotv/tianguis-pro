@@ -1,0 +1,17 @@
+{
+  "name": "tianguis-pro-backend",
+  "version": "1.0.0",
+  "description": "Backend Express para Tianguis Pro – crea preferencias de Mercado Pago",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mercadopago": "^2.0.0"
+  }
+}
