@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">Tianguis Pro</string>
+
+    <!-- Pantalla principal -->
+    <string name="main_tagline">Gestiona tus ventas fácil y rápido</string>
+    <string name="btn_vendor">Soy Vendedor</string>
+    <string name="btn_client">Ver Catálogo</string>
+
+    <!-- Login -->
+    <string name="login_title">Acceso Vendedor</string>
+    <string name="email_hint">Correo electrónico</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="btn_login">Iniciar Sesión</string>
+    <string name="error_empty_fields">Por favor llena todos los campos</string>
+    <string name="error_login">Correo o contraseña incorrectos</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_title">Resumen del Día</string>
+    <string name="label_sales_today">Ventas hoy</string>
+    <string name="label_transactions">Transacciones</string>
+    <string name="label_best_product">Más vendido</string>
+    <string name="nav_inventory">Inventario</string>
+    <string name="nav_qr">Cobrar QR</string>
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="logout">Cerrar Sesión</string>
+
+    <!-- Admin / Inventario -->
+    <string name="admin_title">Mi Inventario</string>
+    <string name="fab_add_product">Agregar producto</string>
+    <string name="empty_products">No hay productos.\nToca + para agregar.</string>
+
+    <!-- Agregar / Editar Producto -->
+    <string name="add_product_title">Nuevo Producto</string>
+    <string name="edit_product_title">Editar Producto</string>
+    <string name="product_name_hint">Nombre del producto *</string>
+    <string name="product_price_hint">Precio (MXN) *</string>
+    <string name="product_stock_hint">Cantidad en stock *</string>
+    <string name="product_image_hint">URL de imagen (opcional)</string>
+    <string name="product_category_hint">Categoría</string>
+    <string name="btn_save">Guardar</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="success_save">Producto guardado correctamente</string>
+    <string name="error_save">Error al guardar producto</string>
+    <string name="confirm_delete">¿Eliminar \"%s\"?</string>
+    <string name="delete">Eliminar</string>
+    <string name="edit">Editar</string>
+
+    <!-- Catálogo Cliente -->
+    <string name="client_title">Catálogo</string>
+    <string name="search_hint">Buscar producto…</string>
+    <string name="btn_cart">Carrito</string>
+    <string name="add_to_cart">+ Carrito</string>
+    <string name="out_of_stock">Agotado</string>
+    <string name="in_stock">Disponible</string>
+
+    <!-- Carrito -->
+    <string name="cart_title">Mi Carrito</string>
+    <string name="cart_empty">Tu carrito está vacío</string>
+    <string name="total_label">Total:</string>
+    <string name="btn_pay_now">Pagar Ahora</string>
+    <string name="btn_clear_cart">Vaciar carrito</string>
+
+    <!-- Pago -->
+    <string name="payment_success">¡Pago exitoso! Gracias por tu compra.</string>
+    <string name="payment_cancelled">Pago cancelado.</string>
+    <string name="payment_error">Error en el pago. Inténtalo de nuevo.</string>
+
+    <!-- Generador QR -->
+    <string name="qr_title">Cobro por QR</string>
+    <string name="qr_instruction">El cliente escanea este código con Mercado Pago</string>
+    <string name="amount_hint">Monto a cobrar (MXN)</string>
+    <string name="btn_generate_qr">Generar QR</string>
+    <string name="btn_new_qr">Nuevo cobro</string>
+    <string name="error_invalid_amount">Ingresa un monto válido</string>
+    <!-- Formato de stock (usado en adaptadores) -->
+    <string name="stock_label">Stock: %d</string>
+</resources>

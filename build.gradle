@@ -1,0 +1,7 @@
+// Archivo build.gradle del proyecto (nivel raíz)
+// Aquí se declaran los plugins disponibles para todos los módulos
+plugins {
+    alias(libs.plugins.android.application) apply false
+    // Plugin de Google Services – requerido para que Firebase funcione
+    alias(libs.plugins.google.services) apply false
+}

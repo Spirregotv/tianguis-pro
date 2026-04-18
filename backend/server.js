@@ -105,8 +105,12 @@ app.post("/createPreference", async (req, res) => {
       },
     });
 
-    // Devuelve solo el ID que necesita Android
-    return res.json({ id: result.id });
+    // Devuelve el ID y la URL de checkout para abrir en el navegador
+    return res.json({
+      id: result.id,
+      init_point: result.init_point,
+      sandbox_init_point: result.sandbox_init_point,
+    });
 
   } catch (error) {
     console.error("Error creando preferencia:", error.message);

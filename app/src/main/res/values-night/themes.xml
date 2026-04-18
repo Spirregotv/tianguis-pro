@@ -1,0 +1,31 @@
+<resources>
+    <!-- Tema oscuro (modo nocturno) -->
+    <style name="Base.Theme.AppDaniel" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">#FF7043</item>
+        <item name="colorOnPrimary">#000000</item>
+        <item name="colorPrimaryContainer">#BF360C</item>
+        <item name="colorOnPrimaryContainer">#FFCCBC</item>
+        <item name="colorSecondary">#7986CB</item>
+        <item name="colorOnSecondary">#000000</item>
+        <item name="android:colorBackground">#1C1B1F</item>
+        <item name="colorSurface">#2B2A2E</item>
+        <item name="colorOnSurface">#E6E1E5</item>
+        <item name="colorError">#EF9A9A</item>
+        <item name="android:statusBarColor">#BF360C</item>
+    </style>
+
+    <style name="Theme.AppDaniel" parent="Base.Theme.AppDaniel" />
+
+    <!-- Toolbar en modo oscuro: fondo primario naranja, texto blanco -->
+    <style name="TianguisToolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:background">#BF360C</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="subtitleTextColor">#FFCCBC</item>
+    </style>
+
+    <!-- Campos de texto en modo oscuro -->
+    <style name="Widget.Tianguis.TextInput" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">#FF7043</item>
+        <item name="hintTextColor">#FF7043</item>
+    </style>
+</resources>
