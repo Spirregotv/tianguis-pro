@@ -60,16 +60,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
-        <!-- Módulo Cliente -->
-        <activity
-            android:name=".ClientActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".CartActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
 
     </application>
 

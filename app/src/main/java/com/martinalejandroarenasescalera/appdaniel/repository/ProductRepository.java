@@ -51,7 +51,8 @@ public class ProductRepository {
     }
 
     private ProductRepository() {
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        FirebaseDatabase db = FirebaseDatabase.getInstance(
+                "https://tianguis-pro-12345-default-rtdb.firebaseio.com");
         productsRef = db.getReference("products");
         salesRef = db.getReference("sales");
         observeProducts();

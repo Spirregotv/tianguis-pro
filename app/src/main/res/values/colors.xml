@@ -1,54 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Paleta de colores – Material Design 3
-    Diseñada para ALTO CONTRASTE bajo el sol (uso en tianguis al aire libre).
-    Primario: Naranja profundo (#BF360C) – máxima visibilidad.
-    Secundario: Azul oscuro (#1A237E) – excelente legibilidad.
-    Fondo: Blanco cálido (#FFFDE7) – reduce el deslumbramiento.
+    Paleta Minimalista — Tianguis Pro
+    Sistema de color muted inspirado en moda de lujo.
+    Tonos tierra, grises suaves y monocromáticos.
 -->
 <resources>
-    <!-- Colores primarios -->
-    <color name="md_theme_primary">#BF360C</color>
-    <color name="md_theme_on_primary">#FFFFFF</color>
-    <color name="md_theme_primary_container">#FFCCBC</color>
-    <color name="md_theme_on_primary_container">#4E0000</color>
+    <!-- ── Primario: Negro carbón ─────────────────────────────── -->
+    <color name="md_theme_primary">#1A1A18</color>
+    <color name="md_theme_on_primary">#F8F6F2</color>
+    <color name="md_theme_primary_container">#2E2E2C</color>
+    <color name="md_theme_on_primary_container">#E5E3DE</color>
 
-    <!-- Colores secundarios -->
-    <color name="md_theme_secondary">#1A237E</color>
-    <color name="md_theme_on_secondary">#FFFFFF</color>
-    <color name="md_theme_secondary_container">#C5CAE9</color>
-    <color name="md_theme_on_secondary_container">#000051</color>
+    <!-- ── Secundario: Tierra cálido ─────────────────────────── -->
+    <color name="md_theme_secondary">#A08C7B</color>
+    <color name="md_theme_on_secondary">#F8F6F2</color>
+    <color name="md_theme_secondary_container">#EDE8DF</color>
+    <color name="md_theme_on_secondary_container">#4A4845</color>
 
-    <!-- Fondos y superficies -->
-    <color name="md_theme_background">#FFFDE7</color>
-    <color name="md_theme_on_background">#1C1B1F</color>
-    <color name="md_theme_surface">#FFFDE7</color>
-    <color name="md_theme_on_surface">#1C1B1F</color>
-    <color name="md_theme_surface_variant">#F5F0EB</color>
-    <color name="md_theme_on_surface_variant">#4A4540</color>
+    <!-- ── Fondos y superficies ───────────────────────────────── -->
+    <color name="md_theme_background">#F8F6F2</color>   <!-- Blanco roto -->
+    <color name="md_theme_on_background">#1A1A18</color>
+    <color name="md_theme_surface">#F8F6F2</color>
+    <color name="md_theme_on_surface">#1A1A18</color>
+    <color name="md_theme_surface_variant">#EDE8DF</color>  <!-- Crema suave -->
+    <color name="md_theme_on_surface_variant">#4A4845</color> <!-- Gris grafito -->
 
-    <!-- Error -->
-    <color name="md_theme_error">#B71C1C</color>
-    <color name="md_theme_on_error">#FFFFFF</color>
-    <color name="md_theme_error_container">#FFCDD2</color>
+    <!-- ── Error ─────────────────────────────────────────────── -->
+    <color name="md_theme_error">#8B3A3A</color>
+    <color name="md_theme_on_error">#F8F6F2</color>
+    <color name="md_theme_error_container">#F2E0E0</color>
 
-    <!-- Contorno y divisores -->
-    <color name="md_theme_outline">#79747E</color>
-    <color name="md_theme_outline_variant">#CAC4D0</color>
+    <!-- ── Contornos ──────────────────────────────────────────── -->
+    <color name="md_theme_outline">#9A9691</color>
+    <color name="md_theme_outline_variant">#E5E3DE</color>  <!-- Gris niebla -->
 
-    <!-- Indicadores de stock -->
-    <color name="stock_ok">#1B5E20</color>       <!-- Verde oscuro = hay stock -->
-    <color name="stock_low">#E65100</color>       <!-- Naranja = poco stock -->
-    <color name="stock_empty">#B71C1C</color>     <!-- Rojo = sin stock -->
+    <!-- ── Indicadores de stock (muted) ──────────────────────── -->
+    <color name="stock_ok">#4A7C59</color>       <!-- Verde musgo -->
+    <color name="stock_low">#A08C7B</color>       <!-- Tierra = poco stock -->
+    <color name="stock_empty">#8B3A3A</color>     <!-- Vino = sin stock -->
 
-    <!-- Precio destacado -->
-    <color name="price_color">#BF360C</color>
+    <!-- ── Precio: negro elegante (no naranja) ───────────────── -->
+    <color name="price_color">#1A1A18</color>
 
-    <!-- Gradiente principal (para fondos de pantalla) -->
-    <color name="gradient_start">#BF360C</color>
-    <color name="gradient_end">#E64A19</color>
+    <!-- ── Acento sutil ───────────────────────────────────────── -->
+    <color name="accent_warm">#A08C7B</color>     <!-- Tierra cálido -->
+    <color name="accent_sand">#C4B49A</color>     <!-- Arena oscura -->
 
-    <!-- Básicos -->
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- ── Gradiente (para drawables existentes) ─────────────── -->
+    <color name="gradient_start">#1A1A18</color>
+    <color name="gradient_end">#4A4845</color>
+
+    <!-- ── Básicos ────────────────────────────────────────────── -->
+    <color name="black">#FF1A1A18</color>
+    <color name="white">#FFF8F6F2</color>
+
+    <!-- ── Separadores ───────────────────────────────────────── -->
+    <color name="divider">#E5E3DE</color>
 </resources>

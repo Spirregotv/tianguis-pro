@@ -49,6 +49,62 @@ public class PreferenceApiClient {
     }
 
     /**
+     * Crea una preferencia de pago con un monto y descripción simples.
+     * Usado por el generador de QR para cobros presenciales.
+     */
+    public void createPreferenceForAmount(double amount, String description, Callback callback) {
+        executor.execute(() -> {
+            try {
+                JSONArray jsonItems = new JSONArray();
+                JSONObject jsonItem = new JSONObject();
+                jsonItem.put("name",     description);
+                jsonItem.put("quantity", 1);
+                jsonItem.put("price",    amount);
+                jsonItems.put(jsonItem);
+
+                JSONObject body = new JSONObject();
+                body.put("totalPrice", amount);
+                body.put("items", jsonItems);
+
+                HttpURLConnection conn = (HttpURLConnection) new URL(BACKEND_URL).openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setConnectTimeout(70_000);
+                conn.setReadTimeout(70_000);
+                conn.setDoOutput(true);
+
+                try (OutputStream os = conn.getOutputStream()) {
+                    os.write(body.toString().getBytes("UTF-8"));
+                }
+
+                int statusCode = conn.getResponseCode();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(
+                        statusCode < 400 ? conn.getInputStream() : conn.getErrorStream()
+                ));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) sb.append(line);
+                reader.close();
+                conn.disconnect();
+
+                if (statusCode >= 200 && statusCode < 300) {
+                    JSONObject json = new JSONObject(sb.toString());
+                    String checkoutUrl = json.optString("sandbox_init_point", "");
+                    if (checkoutUrl.isEmpty()) checkoutUrl = json.optString("init_point", "");
+                    final String url = checkoutUrl;
+                    mainHandler.post(() -> callback.onSuccess(url));
+                } else {
+                    String errorMsg = "Error del servidor (" + statusCode + "): " + sb;
+                    mainHandler.post(() -> callback.onError(errorMsg));
+                }
+            } catch (Exception e) {
+                String msg = e.getMessage() != null ? e.getMessage() : "Error de red";
+                mainHandler.post(() -> callback.onError(msg));
+            }
+        });
+    }
+
+    /**
      * Envía los ítems del carrito al backend y recibe el preference_id.
      * La llamada HTTP ocurre en un hilo de fondo; el resultado llega al Main Thread.
      */
@@ -76,8 +132,8 @@ public class PreferenceApiClient {
                 HttpURLConnection conn = (HttpURLConnection) new URL(BACKEND_URL).openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
-                conn.setConnectTimeout(15_000); // 15s — el free tier puede tardar en despertar
-                conn.setReadTimeout(20_000);
+                conn.setConnectTimeout(70_000);
+                conn.setReadTimeout(70_000);
                 conn.setDoOutput(true);
 
                 try (OutputStream os = conn.getOutputStream()) {
@@ -97,10 +153,9 @@ public class PreferenceApiClient {
 
                 if (statusCode >= 200 && statusCode < 300) {
                     JSONObject json = new JSONObject(sb.toString());
-                    // En modo TEST usamos sandbox_init_point; en producción usa init_point
                     String checkoutUrl = json.optString("sandbox_init_point", "");
                     if (checkoutUrl.isEmpty()) {
-                        checkoutUrl = json.getString("init_point");
+                        checkoutUrl = json.optString("init_point", "");
                     }
                     final String url = checkoutUrl;
                     mainHandler.post(() -> callback.onSuccess(url));

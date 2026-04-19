@@ -1,31 +1,80 @@
 <resources>
-    <!-- Tema oscuro (modo nocturno) -->
+    <!-- Tema oscuro minimalista — elegante, no negro puro -->
     <style name="Base.Theme.AppDaniel" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="colorPrimary">#FF7043</item>
-        <item name="colorOnPrimary">#000000</item>
-        <item name="colorPrimaryContainer">#BF360C</item>
-        <item name="colorOnPrimaryContainer">#FFCCBC</item>
-        <item name="colorSecondary">#7986CB</item>
-        <item name="colorOnSecondary">#000000</item>
-        <item name="android:colorBackground">#1C1B1F</item>
-        <item name="colorSurface">#2B2A2E</item>
-        <item name="colorOnSurface">#E6E1E5</item>
-        <item name="colorError">#EF9A9A</item>
-        <item name="android:statusBarColor">#BF360C</item>
+        <!-- Primario: blanco roto sobre fondo oscuro -->
+        <item name="colorPrimary">#F8F6F2</item>
+        <item name="colorOnPrimary">#1A1A18</item>
+        <item name="colorPrimaryContainer">#2E2E2C</item>
+        <item name="colorOnPrimaryContainer">#E5E3DE</item>
+        <!-- Secundario: tierra cálido -->
+        <item name="colorSecondary">#C4B49A</item>
+        <item name="colorOnSecondary">#1A1A18</item>
+        <item name="colorSecondaryContainer">#2E2B28</item>
+        <item name="colorOnSecondaryContainer">#EDE8DF</item>
+        <!-- Fondos: negro carbón, no negro puro -->
+        <item name="android:colorBackground">#1A1A18</item>
+        <item name="colorSurface">#242422</item>
+        <item name="colorOnSurface">#F8F6F2</item>
+        <item name="colorSurfaceVariant">#2E2E2C</item>
+        <item name="colorOnSurfaceVariant">#9A9691</item>
+        <!-- Error: vino muted -->
+        <item name="colorError">#C47A7A</item>
+        <item name="colorOnError">#1A1A18</item>
+        <!-- Status bar -->
+        <item name="android:statusBarColor">#1A1A18</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <!-- Outline -->
+        <item name="colorOutline">#4A4845</item>
+        <item name="colorOutlineVariant">#2E2E2C</item>
     </style>
 
     <style name="Theme.AppDaniel" parent="Base.Theme.AppDaniel" />
 
-    <!-- Toolbar en modo oscuro: fondo primario naranja, texto blanco -->
+    <!-- Toolbar oscura: negro carbón con texto blanco roto -->
     <style name="TianguisToolbar" parent="Widget.Material3.Toolbar">
-        <item name="android:background">#BF360C</item>
-        <item name="titleTextColor">@color/white</item>
-        <item name="subtitleTextColor">#FFCCBC</item>
+        <item name="android:background">#1A1A18</item>
+        <item name="titleTextColor">#F8F6F2</item>
+        <item name="subtitleTextColor">#9A9691</item>
     </style>
 
-    <!-- Campos de texto en modo oscuro -->
+    <!-- TextInput noche: borde tierra sutil -->
     <style name="Widget.Tianguis.TextInput" parent="Widget.Material3.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">#FF7043</item>
-        <item name="hintTextColor">#FF7043</item>
+        <item name="boxStrokeColor">#4A4845</item>
+        <item name="hintTextColor">#9A9691</item>
+        <item name="boxCornerRadiusBottomEnd">4dp</item>
+        <item name="boxCornerRadiusBottomStart">4dp</item>
+        <item name="boxCornerRadiusTopEnd">4dp</item>
+        <item name="boxCornerRadiusTopStart">4dp</item>
     </style>
+
+    <!-- Card noche: superficie oscura, sin borde -->
+    <style name="Widget.Tianguis.ProductCard" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="cardBackgroundColor">#242422</item>
+    </style>
+
+    <!-- Botón noche: blanco roto sólido -->
+    <style name="Widget.Tianguis.Button.Primary" parent="Widget.Material3.Button">
+        <item name="android:minHeight">52dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="backgroundTint">#F8F6F2</item>
+        <item name="android:textColor">#1A1A18</item>
+        <item name="cornerRadius">4dp</item>
+    </style>
+
+    <!-- Botón Ghost noche -->
+    <style name="Widget.Tianguis.Button.Ghost" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">0.06</item>
+        <item name="strokeColor">#F8F6F2</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:textColor">#F8F6F2</item>
+        <item name="cornerRadius">4dp</item>
+    </style>
+
 </resources>
