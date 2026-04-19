@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -15,106 +15,145 @@
             style="@style/TianguisToolbar" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="24dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!-- Campo para ingresar el monto -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilAmount"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/amount_hint"
-            style="@style/Widget.Tianguis.TextInput"
-            app:prefixText="$"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etAmount"
-                android:layout_width="match_parent"
+            android:padding="24dp">
+
+            <!-- Campo monto -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilAmount"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:textSize="20sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@string/amount_hint"
+                style="@style/Widget.Tianguis.TextInput"
+                app:prefixText="$"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Botón Generar QR -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnGenerateQR"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/btn_generate_qr"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:cornerRadius="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilAmount" />
-
-        <!-- Contenedor del QR generado (oculto hasta generar) -->
-        <LinearLayout
-            android:id="@+id/layoutQRResult"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginTop="24dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnGenerateQR">
-
-            <!-- Monto a cobrar -->
-            <TextView
-                android:id="@+id/tvAmountDisplay"
-                android:layout_width="wrap_content"
+            <!-- Campo descripción del cobro -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilDescription"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/md_theme_primary"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginTop="12dp"
+                android:hint="Descripción del cobro"
+                style="@style/Widget.Tianguis.TextInput"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilAmount">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Imagen del QR -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="8dp"
-                android:layout_marginBottom="16dp">
-                <ImageView
-                    android:id="@+id/imgQR"
-                    android:layout_width="280dp"
-                    android:layout_height="280dp"
-                    android:padding="12dp"
-                    android:scaleType="fitCenter"
-                    android:contentDescription="Código QR de pago" />
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Instrucción -->
-            <TextView
-                android:id="@+id/tvInstruction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/qr_instruction"
-                android:textSize="14sp"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:gravity="center"
-                android:layout_marginBottom="24dp" />
-
-            <!-- Botón nuevo cobro -->
+            <!-- Botón Generar QR -->
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnNewQR"
-                android:layout_width="match_parent"
+                android:id="@+id/btnGenerateQR"
+                android:layout_width="0dp"
                 android:layout_height="56dp"
-                android:text="@string/btn_new_qr"
-                style="@style/Widget.Material3.Button.TonalButton"
-                app:cornerRadius="12dp" />
+                android:layout_marginTop="16dp"
+                android:text="@string/btn_generate_qr"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilDescription" />
 
-        </LinearLayout>
+            <!-- ProgressBar mientras se crea la preferencia en Mercado Pago -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnGenerateQR" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Contenedor del QR generado -->
+            <LinearLayout
+                android:id="@+id/layoutQRResult"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginTop="24dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/progressBar">
+
+                <!-- Monto y descripción -->
+                <TextView
+                    android:id="@+id/tvAmountDisplay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnSurface"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:layout_marginBottom="8dp" />
+
+                <!-- Instrucción -->
+                <TextView
+                    android:id="@+id/tvInstruction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/qr_instruction"
+                    android:textSize="14sp"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Imagen del QR -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="8dp"
+                    android:layout_marginBottom="24dp">
+                    <ImageView
+                        android:id="@+id/imgQR"
+                        android:layout_width="280dp"
+                        android:layout_height="280dp"
+                        android:padding="12dp"
+                        android:scaleType="fitCenter"
+                        android:contentDescription="Código QR de pago" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Botón nuevo cobro -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNewQR"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="@string/btn_new_qr"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    app:cornerRadius="12dp" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

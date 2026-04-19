@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,31 +24,22 @@ import com.google.zxing.qrcode.QRCodeWriter;
 /**
  * QRGeneratorActivity – Generador de códigos QR para cobros presenciales.
  *
- * Genera un código QR con la información del cobro para que el cliente
- * lo escanee con su app de Mercado Pago o cualquier lector de QR.
- *
- * ═══════════════════════════════════════════════════════════════
- * INTEGRACIÓN CON MERCADO PAGO QR:
- *
- * Para cobros QR reales con Mercado Pago ("Cobro con QR Point of Sale"):
- *  1. Crea una caja (POS) en el Panel de Mercado Pago
- *  2. Genera un "fixed QR" para tu caja desde el API o el panel
- *  3. O usa el API de Órdenes para crear QR dinámicos con monto específico
- *
- * Referencia: https://www.mercadopago.com.mx/developers/es/docs/qr-code
- *
- * En esta implementación, el QR contiene el monto y datos del vendedor
- * como texto simple (útil para integración manual o QR informativos).
- * ═══════════════════════════════════════════════════════════════
+ * Crea una preferencia de pago en Mercado Pago a través del backend,
+ * y genera un QR con la URL de checkout. El cliente escanea el QR
+ * y se abre la app de Mercado Pago para completar el pago.
  */
 public class QRGeneratorActivity extends AppCompatActivity {
 
-    private static final int QR_SIZE = 600; // píxeles
+    private static final int QR_SIZE = 600;
 
-    private TextInputEditText etAmount;
+    private TextInputEditText etAmount, etDescription;
     private ImageView imgQR;
-    private TextView tvAmountDisplay, tvInstruction;
+    private TextView tvAmountDisplay;
     private LinearLayout layoutQRResult;
+    private ProgressBar progressBar;
+    private Button btnGenerate;
+
+    private final PreferenceApiClient apiClient = new PreferenceApiClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +53,14 @@ public class QRGeneratorActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(R.string.qr_title);
         }
 
-        etAmount = findViewById(R.id.etAmount);
-        imgQR = findViewById(R.id.imgQR);
+        etAmount      = findViewById(R.id.etAmount);
+        etDescription = findViewById(R.id.etDescription);
+        imgQR         = findViewById(R.id.imgQR);
         tvAmountDisplay = findViewById(R.id.tvAmountDisplay);
-        tvInstruction = findViewById(R.id.tvInstruction);
-        layoutQRResult = findViewById(R.id.layoutQRResult);
-        Button btnGenerate = findViewById(R.id.btnGenerateQR);
-        Button btnNew = findViewById(R.id.btnNewQR);
+        layoutQRResult  = findViewById(R.id.layoutQRResult);
+        progressBar     = findViewById(R.id.progressBar);
+        btnGenerate     = findViewById(R.id.btnGenerateQR);
+        Button btnNew   = findViewById(R.id.btnNewQR);
 
         btnGenerate.setOnClickListener(v -> generateQR());
         btnNew.setOnClickListener(v -> resetForm());
@@ -75,10 +68,14 @@ public class QRGeneratorActivity extends AppCompatActivity {
 
     private void generateQR() {
         String amountStr = etAmount.getText() != null ? etAmount.getText().toString().trim() : "";
+        String description = etDescription.getText() != null ? etDescription.getText().toString().trim() : "";
 
         if (TextUtils.isEmpty(amountStr)) {
             Toast.makeText(this, R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
             return;
+        }
+        if (TextUtils.isEmpty(description)) {
+            description = "Cobro Tianguis Pro";
         }
 
         double amount;
@@ -90,28 +87,39 @@ public class QRGeneratorActivity extends AppCompatActivity {
             return;
         }
 
-        // Contenido del QR: JSON con monto, moneda y timestamp
-        String qrContent = String.format(
-                "{\"app\":\"TianguisPro\",\"amount\":%.2f,\"currency\":\"MXN\",\"ts\":%d}",
-                amount, System.currentTimeMillis()
-        );
+        // Mostrar carga y deshabilitar botón mientras se crea la preferencia
+        progressBar.setVisibility(View.VISIBLE);
+        btnGenerate.setEnabled(false);
+        etAmount.setEnabled(false);
+        etDescription.setEnabled(false);
 
-        Bitmap qrBitmap = generateQRBitmap(qrContent);
-        if (qrBitmap != null) {
-            imgQR.setImageBitmap(qrBitmap);
-            tvAmountDisplay.setText(String.format("$%.2f MXN", amount));
-            layoutQRResult.setVisibility(View.VISIBLE);
-            etAmount.setEnabled(false);
-            findViewById(R.id.btnGenerateQR).setVisibility(View.GONE);
-        }
+        final String desc = description;
+        final double finalAmount = amount;
+
+        apiClient.createPreferenceForAmount(amount, description, new PreferenceApiClient.Callback() {
+            @Override
+            public void onSuccess(String checkoutUrl) {
+                progressBar.setVisibility(View.GONE);
+                Bitmap qrBitmap = generateQRBitmap(checkoutUrl);
+                if (qrBitmap != null) {
+                    imgQR.setImageBitmap(qrBitmap);
+                    tvAmountDisplay.setText(String.format("$%.2f MXN — %s", finalAmount, desc));
+                    layoutQRResult.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onError(String message) {
+                progressBar.setVisibility(View.GONE);
+                btnGenerate.setEnabled(true);
+                etAmount.setEnabled(true);
+                etDescription.setEnabled(true);
+                Toast.makeText(QRGeneratorActivity.this,
+                        "Error al crear cobro: " + message, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
-    /**
-     * Genera el Bitmap del código QR usando la librería ZXing.
-     *
-     * @param content Texto/JSON a codificar en el QR
-     * @return Bitmap del QR en blanco y negro, o null si hay error
-     */
     private Bitmap generateQRBitmap(String content) {
         QRCodeWriter writer = new QRCodeWriter();
         try {
@@ -131,10 +139,13 @@ public class QRGeneratorActivity extends AppCompatActivity {
 
     private void resetForm() {
         etAmount.setText("");
+        etDescription.setText("");
         etAmount.setEnabled(true);
+        etDescription.setEnabled(true);
+        btnGenerate.setEnabled(true);
         imgQR.setImageDrawable(null);
         layoutQRResult.setVisibility(View.GONE);
-        findViewById(R.id.btnGenerateQR).setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
